@@ -5,12 +5,14 @@ import SearchIcon from '@mui/icons-material/Search';
 // Removed Box import as it's no longer needed for styling within CardComponent
 // import Box from '@mui/material/Box'; 
 
-function SearchBar() {
+function SearchBar({ searchTerm, onSearch }) {
   return (
     <TextField
       fullWidth
       variant="outlined"
       placeholder="Search for hackathon or city..."
+      value={searchTerm}
+      onChange={onSearch}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
