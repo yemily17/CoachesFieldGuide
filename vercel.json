@@ -1,0 +1,8 @@
+{
+  "buildCommand": "cd map-app && npm install && npm run build",
+  "outputDirectory": "map-app/build",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}
+
