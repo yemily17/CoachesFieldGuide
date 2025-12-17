@@ -27,16 +27,25 @@ function CardComponent() {
     setSelectedHackathon(null);
   };
 
-  // simple random name generator to assign 2-4 coaches per event
+  // simple random name generator using provided coach pool (2-4 per event)
   const generateCoaches = () => {
-    const firstNames = ['Avery', 'Jordan', 'Taylor', 'Riley', 'Morgan', 'Parker', 'Casey', 'Reese', 'Sydney', 'Rowan', 'Devon', 'Jamie', 'Logan', 'Quinn', 'Alex', 'Sam', 'Cameron', 'Elliot', 'Hayden', 'Drew'];
-    const lastNames = ['Chen', 'Patel', 'Nguyen', 'Garcia', 'Kim', 'Lopez', 'Martinez', 'Rodriguez', 'Johnson', 'Davis', 'Brown', 'Wilson', 'Moore', 'Clark', 'Lewis', 'Walker', 'Young', 'Hall', 'Allen', 'Wright'];
+    const pool = [
+      'Kevin Wang',
+      'Emily Yin',
+      'Ryan Swift',
+      'Kevin Chen',
+      'Paul Horton',
+      'Ryan Lahlou',
+      'Rosendo Pili',
+      'Kari Groszewska',
+      'Charbel Breydy',
+      'Wei He',
+    ];
     const count = Math.floor(Math.random() * 3) + 2; // 2-4 coaches
     const names = new Set();
     while (names.size < count) {
-      const first = firstNames[Math.floor(Math.random() * firstNames.length)];
-      const last = lastNames[Math.floor(Math.random() * lastNames.length)];
-      names.add(`${first} ${last}`);
+      const name = pool[Math.floor(Math.random() * pool.length)];
+      names.add(name);
     }
     return Array.from(names);
   };
@@ -127,7 +136,7 @@ function CardComponent() {
       left: 20,
       bottom: 20,
       zIndex: 1000,
-      width: 300,
+      width: 400,
       height: 'auto',
       overflowY: 'auto',
       p: 2,
@@ -135,19 +144,26 @@ function CardComponent() {
       <CardContent>
         {selectedHackathon ? (
           <>
-            <Button onClick={handleBack} variant="text" sx={{ mb: 2 }}>
+            <Button
+              onClick={handleBack}
+              variant="outlined"
+              sx={{ mb: 2, color: 'black', borderColor: 'black' }}
+            >
               ← Back to hackathons
             </Button>
 
-            <Typography variant="h6" component="div" sx={{ mb: 1 }}>
+            <Typography variant="h6" component="div" sx={{ mb: 1, fontWeight: 700 }}>
               {selectedHackathon.title}
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
               {selectedHackathon.university} — {selectedHackathon.city}, {selectedHackathon.state} {selectedHackathon.country}
             </Typography>
 
             <Typography variant="subtitle1" sx={{ mb: 1 }}>
               Coaches
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Here are coaches that have previously attended this hackathon. Feel free to reach out to them for any questions you may have about the hackathon or the area.
             </Typography>
             {selectedHackathon.coaches?.map((coach) => (
               <Card key={coach} sx={{ mb: 1, bgcolor: 'background.paper' }}>
@@ -162,8 +178,8 @@ function CardComponent() {
             <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
             <Box sx={{ mt: 2 }} />
 
-            <Typography variant="h6" component="div" sx={{ mb: 1 }}>
-              Upcoming Hackathons
+            <Typography variant="h6" component="div" sx={{ mb: 1, fontWeight: 700 }}>
+              Coaches Field Guide
             </Typography>
 
             {loading && (
@@ -191,7 +207,7 @@ function CardComponent() {
                 onClick={() => handleCardClick(hackathon)}
               >
                 <CardContent>
-                  <Typography variant="h6" component="div">
+                  <Typography variant="h6" component="div" sx={{ fontWeight: 700 }}>
                     {hackathon.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">

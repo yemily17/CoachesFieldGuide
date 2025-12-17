@@ -10,6 +10,7 @@ function SearchBar({ searchTerm, onSearch }) {
     <TextField
       fullWidth
       variant="outlined"
+      size="small"
       placeholder="Search hackathon, university, city, state, or country..."
       value={searchTerm}
       onChange={onSearch}
